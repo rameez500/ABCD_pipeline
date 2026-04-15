@@ -1,40 +1,58 @@
-# ABCD Genotype Pipeline
+# Prenatal Cannabis Exposure, Genetic Predispositions, and Autism Traits in the ABCD Study
 
-A comprehensive pipeline for processing ABCD (Adolescent Brain Cognitive Development) study genotype data, from pre-imputation QC to polygenic risk score (PRS) calculation.
+[![Paper](https://img.shields.io/badge/Paper-10.31234%2Fosf.io%2Fwpng5-blue)](https://doi.org/10.31234/osf.io/wpng5)
+[![R](https://img.shields.io/badge/Made%20with-R-blue.svg)](https://www.r-project.org/)
+[![Python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+[![PLINK](https://img.shields.io/badge/Tool-PLINK-orange)](https://www.cog-genomics.org/plink/)
 
-## Overview
+This repository contains the complete analysis pipeline for the study:
 
-This pipeline processes genotype data from the ABCD study through the following stages:
+> **Prenatal Cannabis Exposure, Genetic Predispositions, and Autism Spectrum Disorder Traits in the Adolescent Brain Cognitive Development Study**
+>
+> This study investigated whether prenatal cannabis exposure (PCE) predicts Autism Spectrum Disorder (ASD) traits above and beyond genetic risk (using a polygenic score, PGS) and familial confounders in children from the ABCD study.
 
-1. **Pre-imputation Quality Control**: Missingness analysis, MAF calculation, ancestry filtering
-2. **Post-imputation Processing**: SNP filtering (MAF > 1%, Rsq > 0.8), rsID mapping
-3. **Polygenic Risk Scores**: PRS-CS analysis for multiple phenotypes
+## 📚 Overview & Key Findings
 
-## Repository Structure
-ABCD_genotype_pipeline/
-├── scripts/ # Analysis scripts
-├── config/ # Configuration files
-├── docs/ # Documentation
-├── notebooks/ # Jupyter notebooks
-└── tests/ # Test scripts
+This research used data from the Adolescent Brain Cognitive Development (ABCD) Study® to answer three main questions:
 
+1.  **Genetic Prediction:** Does a polygenic score for ASD predict autism-related traits in a general population sample of 9-11 year olds?
+2.  **Independent Effect of PCE:** Does prenatal cannabis exposure predict ASD traits even after accounting for the child's own genetic risk?
+3.  **Role of Familial Confounders:** Does the association between PCE and ASD traits persist after controlling for broader family-level factors using a propensity score?
 
-## Requirements
+### Main Results from the Paper
 
-### Software
-- R (>= 4.0) with packages: data.table, ggplot2, tidyverse
-- Python (>= 3.8) with packages: numpy, pandas
-- PLINK (>= 1.9)
-- BCFtools
-- PRS-CS
+Our analyses demonstrated that:
 
-### Data Access
-- ABCD study data (requires data use agreement)
-- GWAS summary statistics (PGC, etc.)
+- **PGS is a significant predictor:** The ASD polygenic score was significantly associated with the total SRS score (β = 0.09, 95% CI [0.05, 0.13]) and most subscales.
+- **PCE has an independent effect:** Prenatal cannabis exposure accounted for significant variance in ASD traits *above and beyond* the genetic risk captured by the PGS.
+- **Effect remains after rigorous control:** Even in the most stringent models controlling for both the PGS *and* a propensity score (accounting for numerous family-level confounders), PCE remained positively associated with the total SRS score and several specific ASD traits.
 
-## Quick Start
+## 🧬 Analysis Pipeline
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/yourusername/ABCD_genotype_pipeline.git
-cd ABCD_genotype_pipeline
+The analysis follows a structured pipeline from raw genotype data to statistical modeling, as illustrated below:
+
+```mermaid
+graph TD
+    subgraph "1. Genotype Processing (PLINK / R)"
+        A[Raw ABCD Genotype Data] --> B{Pre-imputation QC};
+        B --> C[Filter SNPs: MAF > 1%, Rsq > 0.8];
+        C --> D[Restrict to European Ancestry];
+        D --> E[Map chr:pos to rsIDs];
+    end
+
+    subgraph "2. Polygenic Score (PRS-CS / Python)"
+        E --> F[ASD GWAS Summary Stats];
+        F --> G[Run PRS-CS to derive posterior effect sizes];
+        G --> H[Calculate ASD Polygenic Score (PGS) for each child];
+    end
+
+    subgraph "3. Statistical Modeling (R)"
+        I[ABCD Phenotypic Data<br>(PCE, SRS, Covariates)] --> J[Merge with Genetic Data];
+        H --> J;
+        J --> K[Run Hierarchical Regression Models];
+        K --> L{Key Outputs};
+    end
+
+    L --> M[Table 1: PGS association with SRS];
+    L --> N[Table 2: PCE effect above PGS];
+    L --> O[Table 3: PCE effect controlling for PGS + Propensity Score];
