@@ -72,10 +72,10 @@ ABCD_pipeline/
 ## Scripts
 
 | # | Folder | Description |
-|---|------|----------|-------------|
-| 01 | `01_pre_imputation`  | Load BIM/FAM files, compute missingness and MAF, filter European ancestry (≥95%) |
-| 02 | `02_post_imputation`  | Filter by MAF > 1% & Rsq > 0.8, apply HWE, map rsIDs, merge chromosomes |
-| 03 | `03_polygenic_scores`  | Run PRS-cs and PLINK scoring for four traits (European + mixed ancestry) |
+|---|--------|-------------|
+| 01 | `01_pre_imputation` | Load BIM/FAM files, compute missingness and MAF, filter European ancestry (≥95%) |
+| 02 | `02_post_imputation` | Filter by MAF > 1% & Rsq > 0.8, apply HWE, map rsIDs, merge chromosomes |
+| 03 | `03_polygenic_scores` | Run PRS-cs and PLINK scoring for four traits (European + mixed ancestry) |
 
 ---
 
