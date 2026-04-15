@@ -1,6 +1,6 @@
 # Prenatal Cannabis Exposure, Genetic Predispositions, and Autism Traits in the ABCD Study
 
-[![Paper](https://europepmc.org/article/ppr/ppr957754)
+[![Paper](https://europepmc.org/article/ppr/ppr957754)](https://doi.org/10.31234/osf.io/wpng5)
 [![R](https://img.shields.io/badge/Made%20with-R-blue.svg)](https://www.r-project.org/)
 [![Python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![PLINK](https://img.shields.io/badge/Tool-PLINK-orange)](https://www.cog-genomics.org/plink/)
