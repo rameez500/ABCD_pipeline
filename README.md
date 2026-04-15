@@ -42,36 +42,40 @@ Raw QCed genotypes (PLINK BED)
 ## Repository Structure
 
 ```
-ABCD_geno_pipeline/
+ABCD_pipeline/
 │
 ├── README.md
 │
-├── scripts/
-│   ├── 01_ABCD_pre_imputation.R             # Pre-imputation QC (R)
-│   ├── 02_ABCD_post_imputation.sh           # Post-imputation QC (bash/PLINK)
-│   ├── 03_ABCD_PGS_calculation.sh           # PRS-cs + PLINK scoring (bash)
-│   ├── 04_ABCD_European_and_mixed_ancestry.sh  # Ancestry-stratified datasets (bash)
-│   ├── 05_ABCD_appendix.R                   # Ancestry classification + PCA cleanup (R)
-│   └── rsid_chr_pos.R                       # Helper: map chr:pos to rsIDs (R)
-│
-├── docs/
-│   └── pipeline_overview.md                 # Detailed methods notes
-│
-└── environment/
-    └── README.md                            # Software versions and setup
+├── scripts/                           # All pipeline scripts
+│   ├── 01_pre_imputation/
+│   │   ├── quality_control.R         # Pre-imputation QC
+│   │   └── ancestry_filtering.R      # Genetic ancestry selection
+│   │
+│   ├── 02_post_imputation/
+│   │   ├── filter_snps.sh            # MAF and Rsq filtering
+│   │   ├── convert_to_plink.sh       # VCF to PLINK conversion
+│   │   ├── map_rsids.R               # Map to rsIDs
+│   │   └── merge_chromosomes.sh      # Merge chromosome files
+│   │
+│   ├── 03_polygenic_scores/
+│   │   ├── run_prscs.py              # PRS-CS analysis
+│   │   ├── calculate_prs.sh          # Calculate PRS scores
+│   │   └── prs_config.yaml           # PRS-CS configuration
+│   │
+│   └── utils/
+│       ├── rsid_chr_pos.R            # Helper function for rsID mapping
+│       └── file_utils.sh             # Common file operations                   # Helper: map chr:pos to rsIDs (R)
 ```
 
 ---
 
 ## Scripts
 
-| # | File | Language | Description |
+| # | Folder | Language | Description |
 |---|------|----------|-------------|
-| 01 | `01_ABCD_pre_imputation.R` | R | Load BIM/FAM files, compute missingness and MAF, filter European ancestry (≥95%) |
-| 02 | `02_ABCD_post_imputation.sh` | Bash | Filter by MAF > 1% & Rsq > 0.8, apply HWE, map rsIDs, merge chromosomes |
-| 03 | `03_ABCD_PGS_calculation.sh` | Bash | Run PRS-cs and PLINK scoring for four traits (European + mixed ancestry) |
-| 04 | `04_ABCD_European_and_mixed_ancestry.sh` | Bash | Build FlashPCA-defined European and all-sample datasets |
-| 05 | `05_ABCD_appendix.R` | R | Super-population classification, compare ancestry definitions, clean PCA output |
+| 01 | `01_pre_imputation` | R | Load BIM/FAM files, compute missingness and MAF, filter European ancestry (≥95%) |
+| 02 | `02_post_imputation` | Bash | Filter by MAF > 1% & Rsq > 0.8, apply HWE, map rsIDs, merge chromosomes |
+| 03 | `03_polygenic_scores` | Bash | Run PRS-cs and PLINK scoring for four traits (European + mixed ancestry) |
 
 ---
 
@@ -111,17 +115,4 @@ GWAS summary statistics used for PGS:
 
 ---
 
-## Citation
-
-If you use this pipeline, please cite the ABCD Study and relevant tools:
-
-- Garavan et al. (2018) *NeuroImage* — ABCD Study design
-- Privé et al. (2020) — FlashPCA
-- Ge et al. (2019) — PRS-cs
-
----
-
-## Contact
-
-Rameez Ayed | BGA Lab
 
