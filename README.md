@@ -11,14 +11,6 @@ This repository contains the complete analysis pipeline for the study:
 >
 > This study investigated whether prenatal cannabis exposure (PCE) predicts Autism Spectrum Disorder (ASD) traits above and beyond genetic risk (using a polygenic score, PGS) and familial confounders in children from the ABCD study.
 
-## 📚 Overview & Key Findings
-
-This research used data from the Adolescent Brain Cognitive Development (ABCD) Study® to answer three main questions:
-
-1.  **Genetic Prediction:** Does a polygenic score for ASD predict autism-related traits in a general population sample of 9-11 year olds?
-2.  **Independent Effect of PCE:** Does prenatal cannabis exposure predict ASD traits even after accounting for the child's own genetic risk?
-3.  **Role of Familial Confounders:** Does the association between PCE and ASD traits persist after controlling for broader family-level factors using a propensity score?
-
 ## ABCD Genotyping & Polygenic Score Pipeline
 
 This repository contains scripts for quality control, post-imputation processing, and polygenic score (PGS) calculation using data from the [Adolescent Brain Cognitive Development (ABCD) Study](https://abcdstudy.org/), Release 3.0.
